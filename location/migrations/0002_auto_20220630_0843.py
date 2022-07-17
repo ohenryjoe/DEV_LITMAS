@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='county',
             name='created_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='county',
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='county',
             name='updated_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='county',
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='district',
             name='created_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='district',
@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='district',
             name='updated_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='district',
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='parish',
             name='created_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='parish',
@@ -80,7 +80,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='parish',
             name='updated_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='parish',
@@ -90,7 +90,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='region',
             name='created_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='region',
@@ -101,7 +101,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='region',
             name='updated_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='region',
@@ -111,7 +111,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='sub_region',
             name='created_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='sub_region',
@@ -122,7 +122,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='sub_region',
             name='updated_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='sub_region',
@@ -132,7 +132,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='subcounty',
             name='created_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='subcounty',
@@ -143,7 +143,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='subcounty',
             name='updated_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='subcounty',
@@ -153,7 +153,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='village',
             name='created_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='village',
@@ -164,7 +164,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='village',
             name='updated_by',
-            field=models.CharField(default='current_user', max_length=100),
+            field=models.CharField(default=None, max_length=100),
         ),
         migrations.AddField(
             model_name='village',

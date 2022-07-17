@@ -26,13 +26,24 @@ def year_choices():
 
 ## Person Lookups
 
+class org_type(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, unique=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+    updated_by = models.CharField(max_length=100, default=None)
+    updated_timestamp = models.DateTimeField(auto_now=True)
+
+
 class sex(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -43,10 +54,11 @@ class sex(models.Model):
 class identity_doc_type(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -56,11 +68,12 @@ class identity_doc_type(models.Model):
 
 class title(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    name = models.CharField(max_length=10, unique=True)
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -71,10 +84,11 @@ class title(models.Model):
 class tribe(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -85,10 +99,11 @@ class tribe(models.Model):
 class nationality(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -99,10 +114,11 @@ class nationality(models.Model):
 class education_level(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -113,10 +129,11 @@ class education_level(models.Model):
 class next_of_kin_type(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -129,10 +146,11 @@ class next_of_kin_type(models.Model):
 class animal_type(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -140,13 +158,44 @@ class animal_type(models.Model):
         verbose_name = 'Animal Type'
 
 
+class ownership_change_type(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+    updated_by = models.CharField(max_length=100, default=None)
+    updated_timestamp = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'Ownership Change Types'
+        verbose_name = 'Ownership Change Type'
+
+
+class animal_action_type(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+    updated_by = models.CharField(max_length=100, default=None)
+    updated_timestamp = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'Animal Action Types'
+        verbose_name = 'Animal Action Type'
+
+
 class breed(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -154,13 +203,16 @@ class breed(models.Model):
         verbose_name = 'Animal Breed'
 
 
-class dominant_color(models.Model):
+class dom_skin_color(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    animal_type = models.ForeignKey(animal_type, on_delete=models.PROTECT)
+    breed = models.ForeignKey(breed, on_delete=models.PROTECT)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -171,24 +223,26 @@ class dominant_color(models.Model):
 class origin(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = 'Origins'
-        verbose_name = 'Origin'
+        verbose_name = 'animal_origin'
 
 
 class status(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -200,10 +254,11 @@ class status(models.Model):
 class est_type(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -215,10 +270,11 @@ class est_type(models.Model):
 class tag_status(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -230,10 +286,11 @@ class tag_status(models.Model):
 class incident_type(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -241,13 +298,15 @@ class incident_type(models.Model):
         verbose_name = 'Incident Type'
 
 
-class incident_level(models.Model):
+class incident_priority_level(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    colour_code = models.CharField(max_length=50, default=None)
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -259,10 +318,11 @@ class incident_level(models.Model):
 class operation_status(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -275,10 +335,11 @@ class operation_status(models.Model):
 class transfer_purpose(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -286,13 +347,14 @@ class transfer_purpose(models.Model):
         verbose_name = 'Transfer Purpose'
 
 
-class transfer_nature(models.Model):
+class transit_category(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -300,13 +362,29 @@ class transfer_nature(models.Model):
         verbose_name = 'Transfer Nature'
 
 
+class movement_type(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+    updated_by = models.CharField(max_length=100, default=None)
+    updated_timestamp = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'Movement Types'
+        verbose_name = 'Movement Type'
+
+
 class transfer_status(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -319,10 +397,11 @@ class transfer_status(models.Model):
 class vehicle_make(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -333,10 +412,11 @@ class vehicle_make(models.Model):
 class vehicle_model(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -344,13 +424,14 @@ class vehicle_model(models.Model):
         verbose_name = 'Vehicle Model'
 
 
-class trans_fee_type(models.Model):
+class transfer_fee_type(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -361,10 +442,11 @@ class trans_fee_type(models.Model):
 class payment_mode(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -375,10 +457,11 @@ class payment_mode(models.Model):
 class payment_channel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -391,23 +474,26 @@ class payment_channel(models.Model):
 class quarantine_reason(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=400, null=True, blank=True)
     active = models.BooleanField(default=False)
-    created_by = models.CharField(max_length=100, default='current_user')
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = 'Quarantine Reasons'
         verbose_name = 'Quarantine Reason'
 
+
 class quarantine_status(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=400, null=True, blank=True)
     active = models.BooleanField(default=False)
-    created_by = models.CharField(max_length=100, default='current_user')
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -415,13 +501,29 @@ class quarantine_status(models.Model):
         verbose_name = 'Quarantine Status'
 
 
+class role(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+    updated_by = models.CharField(max_length=100, default=None)
+    updated_timestamp = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'Role'
+        verbose_name = 'Roles'
+
+
 class transfer_action_type(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=400, null=True, blank=True)
     active = models.BooleanField(default=False)
-    created_by = models.CharField(max_length=100, default='current_user')
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -432,10 +534,11 @@ class transfer_action_type(models.Model):
 class mode_of_transport(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=400, null=True, blank=True)
     active = models.BooleanField(default=False)
-    created_by = models.CharField(max_length=100, default='current_user')
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
