@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 from location.models import village
-from lookup.models import sex, identity_doc_type, title, tribe, nationality, education_level, next_of_kin_type
+from lookup.models import sex, identity_doc_type, title, tribe, nationality, education_level, next_of_kin_type,role
 
 
 class person(models.Model):
@@ -30,14 +30,24 @@ class person(models.Model):
     photo = models.TextField(null=True, blank=True)
     physical_address = models.CharField(max_length=200, null=True, blank=True)
     identity_doc_number = models.CharField(max_length=50, default='00000000')
-    # user = models.ForeignKey(User, )
     disabled = models.BooleanField(default=False)
     is_alive = models.BooleanField(default=True)
     is_married = models.BooleanField(default=True)
-    active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
+    updated_timestamp = models.DateTimeField(auto_now=True)
+
+
+class person_role(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    person = models.ForeignKey(person, default=None, on_delete=models.PROTECT)
+    role = models.ForeignKey(role, default=None, on_delete=models.PROTECT)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
 
@@ -46,40 +56,41 @@ class physical_address_log(models.Model):
     person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
     from_address = models.CharField(max_length=200, blank=True, null=True)
     to_address = models.CharField(max_length=200, blank=True, null=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
 
 class village_log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
-    from_village = models.CharField(max_length=200, blank=True, null=True)
-    to_village = models.CharField(max_length=200, blank=True, null=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    from_village = models.ForeignKey(village, default=1, related_name='from_village', on_delete=models.PROTECT)
+    to_village = models.ForeignKey(village, default=1, related_name='to_village', on_delete=models.PROTECT)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
 
 class nationality_log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
-    from_nationality = models.CharField(max_length=200, blank=True, null=True)
-    to_nationality = models.CharField(max_length=200, blank=True, null=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    from_nationality = models.ForeignKey(nationality, default=1, related_name='from_nationality',
+                                         on_delete=models.PROTECT)
+    to_nationality = models.ForeignKey(nationality, default=1, related_name='to_nationality', on_delete=models.PROTECT)
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
 
 class marital_status_log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
-    from_is_married = models.CharField(max_length=200, blank=True, null=True)
-    to_is_married = models.CharField(max_length=200, blank=True, null=True)
-    created_by = models.CharField(max_length=100, default='current_user')
+    from_is_married = models.BooleanField()
+    to_is_married = models.BooleanField()
+    created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
-    updated_by = models.CharField(max_length=100, default='current_user')
+    updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
