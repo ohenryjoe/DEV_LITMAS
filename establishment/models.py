@@ -3,6 +3,8 @@ from decimal import Decimal
 import datetime
 from django.core.validators import MinValueValidator
 from django.db import models
+
+from location.models import village
 from lookup.models import est_type, max_value_current_year
 from organisation.models import organisation
 from person.models import person
@@ -24,3 +26,5 @@ class establishment(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+

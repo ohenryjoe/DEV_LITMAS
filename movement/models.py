@@ -73,7 +73,7 @@ class animal_transfer_action(models.Model):
     updated_timestamp = models.DateTimeField(auto_now=True)
 
 
-class animal_transfer_fee(models.Model):
+class animal_transfer_transaction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     transfer = models.ForeignKey(transfer, default=1, on_delete=models.PROTECT)
     fee_type = models.ForeignKey(transfer_fee_type, default=1, on_delete=models.PROTECT)

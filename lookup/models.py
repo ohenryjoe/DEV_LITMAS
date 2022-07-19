@@ -1,11 +1,11 @@
+import datetime
 import uuid
 
+from django.core.validators import MaxValueValidator
 from django.db import models
 
-##Year fields
 
-import datetime
-from django.core.validators import MaxValueValidator, MinValueValidator
+##Year fields
 
 
 def current_year():
@@ -18,10 +18,6 @@ def max_value_current_year(value):
 
 def year_choices():
     return [(r, r) for r in range(1984, datetime.date.today().year + 1)]
-
-
-# class MyForm(forms.ModelForm):
-#     year = forms.TypedChoiceField(coerce=int, choices=year_choices, initial=current_year)
 
 
 ## Person Lookups
@@ -544,3 +540,19 @@ class mode_of_transport(models.Model):
     class Meta:
         verbose_name_plural = 'Transport Modes'
         verbose_name = 'Transport Mode'
+
+
+# Market Lookup
+class market_type(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, unique=True)
+    description = models.CharField(max_length=400, null=True, blank=True)
+    active = models.BooleanField(default=False)
+    created_by = models.CharField(max_length=100, default=None)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
+    updated_by = models.CharField(max_length=100, default=None)
+    updated_timestamp = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'Market Types'
+        verbose_name = 'Market Type'

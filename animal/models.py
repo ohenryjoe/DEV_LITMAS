@@ -27,7 +27,7 @@ class animal(models.Model):
     date_of_death = models.DateField(null=True, blank=True)
     description = models.CharField(max_length=100, null=True, blank=True)
     front_photo = models.ImageField(upload_to='animal_photos/front', null=True, blank=True)
-    side_photo = models.ImageField(upload_to='animal_photos/front', null=True, blank=True)
+    side_photo = models.ImageField(upload_to='animal_photos/side', null=True, blank=True)
     active = models.BooleanField(default=False)
     created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
