@@ -13,9 +13,9 @@ from django.utils.translation import gettext as _
 
 class establishment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    est_type = models.ForeignKey(est_type, default=1, on_delete=models.PROTECT)
-    person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
-    org = models.ForeignKey(organisation, default=1, on_delete=models.PROTECT)
+    est_type = models.ForeignKey(est_type, default=None, on_delete=models.PROTECT)
+    person = models.ForeignKey(person, default=None, on_delete=models.PROTECT)
+    org = models.ForeignKey(organisation, default=None, on_delete=models.PROTECT)
     name = models.CharField(max_length=100, default='')
     est_size_acres = models.PositiveSmallIntegerField()
     year_est = models.IntegerField(_('year'), validators=[MinValueValidator(1900), max_value_current_year])

@@ -1,22 +1,23 @@
 import uuid
+from operator import concat
 
 from django.db import models
 
 # Create your models here.
 from location.models import village
-from lookup.models import sex, identity_doc_type, title, tribe, nationality, education_level, next_of_kin_type,role
+from lookup.models import sex, identity_doc_type, title, tribe, nationality, education_level, next_of_kin_type, role
 
 
 class person(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    sex = models.ForeignKey(sex, default=1, on_delete=models.PROTECT)
-    village = models.ForeignKey(village, default=1, on_delete=models.PROTECT)
-    identity_doc_type = models.ForeignKey(identity_doc_type, default=1, on_delete=models.PROTECT)
-    title = models.ForeignKey(title, default=1, on_delete=models.PROTECT)
-    tribe = models.ForeignKey(tribe, default=1, on_delete=models.PROTECT)
-    nationality = models.ForeignKey(nationality, default=1, on_delete=models.PROTECT)
-    educ_level = models.ForeignKey(education_level, default=1, on_delete=models.PROTECT)
-    nex_of_kin_type = models.ForeignKey(next_of_kin_type, default=1, on_delete=models.PROTECT)
+    sex = models.ForeignKey(sex, default=None, on_delete=models.PROTECT)
+    village = models.ForeignKey(village, default=None, on_delete=models.PROTECT)
+    identity_doc_type = models.ForeignKey(identity_doc_type, default=None, on_delete=models.PROTECT)
+    title = models.ForeignKey(title, default=None, on_delete=models.PROTECT)
+    tribe = models.ForeignKey(tribe, default=None, on_delete=models.PROTECT)
+    nationality = models.ForeignKey(nationality, default=None, on_delete=models.PROTECT)
+    educ_level = models.ForeignKey(education_level, default=None, on_delete=models.PROTECT)
+    nex_of_kin_type = models.ForeignKey(next_of_kin_type, default=None, on_delete=models.PROTECT)
     first_name = models.CharField(max_length=50, default='')
     other_names = models.CharField(max_length=100, default='')
     last_name = models.CharField(max_length=50, default='')
@@ -39,6 +40,10 @@ class person(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def person_fullname(self):
+        fn = concat(concat(self.first_name, self.other_names), self.last_name)
+        return fn
+
 
 class person_role(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -53,7 +58,7 @@ class person_role(models.Model):
 
 class physical_address_log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
+    person = models.ForeignKey(person, default=None, on_delete=models.PROTECT)
     from_address = models.CharField(max_length=200, blank=True, null=True)
     to_address = models.CharField(max_length=200, blank=True, null=True)
     created_by = models.CharField(max_length=100, default=None)
@@ -64,9 +69,9 @@ class physical_address_log(models.Model):
 
 class village_log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
-    from_village = models.ForeignKey(village, default=1, related_name='from_village', on_delete=models.PROTECT)
-    to_village = models.ForeignKey(village, default=1, related_name='to_village', on_delete=models.PROTECT)
+    person = models.ForeignKey(person, default=None, on_delete=models.PROTECT)
+    from_village = models.ForeignKey(village, default=None, related_name='from_village', on_delete=models.PROTECT)
+    to_village = models.ForeignKey(village, default=None, related_name='to_village', on_delete=models.PROTECT)
     created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
@@ -75,10 +80,10 @@ class village_log(models.Model):
 
 class nationality_log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
-    from_nationality = models.ForeignKey(nationality, default=1, related_name='from_nationality',
+    person = models.ForeignKey(person, default=None, on_delete=models.PROTECT)
+    from_nationality = models.ForeignKey(nationality, default=None, related_name='from_nationality',
                                          on_delete=models.PROTECT)
-    to_nationality = models.ForeignKey(nationality, default=1, related_name='to_nationality', on_delete=models.PROTECT)
+    to_nationality = models.ForeignKey(nationality, default=None, related_name='to_nationality', on_delete=models.PROTECT)
     created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
@@ -87,7 +92,7 @@ class nationality_log(models.Model):
 
 class marital_status_log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
+    person = models.ForeignKey(person, default=None, on_delete=models.PROTECT)
     from_is_married = models.BooleanField()
     to_is_married = models.BooleanField()
     created_by = models.CharField(max_length=100, default=None)

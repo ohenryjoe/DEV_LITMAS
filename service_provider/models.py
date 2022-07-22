@@ -12,10 +12,10 @@ from animal.models import animal_type
 
 class tag_installer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
-    org = models.ForeignKey(organisation, default=1, on_delete=models.PROTECT)
-    village = models.ForeignKey(village, default=1, on_delete=models.PROTECT)
-    operation_status = models.ForeignKey(operation_status, default=1, on_delete=models.PROTECT)
+    person = models.ForeignKey(person, default=None, on_delete=models.PROTECT)
+    org = models.ForeignKey(organisation, default=None, on_delete=models.PROTECT)
+    village = models.ForeignKey(village, default=None, on_delete=models.PROTECT)
+    operation_status = models.ForeignKey(operation_status, default=None, on_delete=models.PROTECT)
     name = models.CharField(max_length=100, unique=True)
     license_issue_date = models.DateField()
     date_est = models.DateField()
@@ -28,8 +28,8 @@ class tag_installer(models.Model):
 
 class vehicle(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    vehicle_make = models.ForeignKey(vehicle_make, default=1, on_delete=models.PROTECT)
-    vehicle_model = models.ForeignKey(vehicle_model, default=1, on_delete=models.PROTECT)
+    vehicle_make = models.ForeignKey(vehicle_make, default=None, on_delete=models.PROTECT)
+    vehicle_model = models.ForeignKey(vehicle_model, default=None, on_delete=models.PROTECT)
     number_plate = models.CharField(max_length=10, unique=True)
     date_installed = models.DateField()
     active = models.BooleanField(default=False)
@@ -41,7 +41,7 @@ class vehicle(models.Model):
 
 class slaughterhouse(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(person, default=1, on_delete=models.PROTECT)
+    person = models.ForeignKey(person, default=None, on_delete=models.PROTECT)
     org = models.ForeignKey(organisation, default=1, on_delete=models.PROTECT)
     village = models.ForeignKey(village, default=1, on_delete=models.PROTECT)
     operation_status = models.ForeignKey(operation_status, default=1, on_delete=models.PROTECT)

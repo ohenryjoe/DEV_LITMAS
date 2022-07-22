@@ -5,7 +5,7 @@ from django.core.validators import MaxValueValidator
 from django.db import models
 
 
-##Year fields
+# Year fields
 
 
 def current_year():
@@ -20,7 +20,7 @@ def year_choices():
     return [(r, r) for r in range(1984, datetime.date.today().year + 1)]
 
 
-## Person Lookups
+# Person Lookups
 
 class org_type(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -30,6 +30,9 @@ class org_type(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 
 class sex(models.Model):
@@ -46,6 +49,9 @@ class sex(models.Model):
         verbose_name_plural = 'Sex'
         verbose_name = 'Sex'
 
+    def __str__(self):
+        return self.name
+
 
 class identity_doc_type(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -56,6 +62,9 @@ class identity_doc_type(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Identity Document Types'
@@ -72,6 +81,9 @@ class title(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Person Titles'
         verbose_name = 'Person Title'
@@ -86,6 +98,9 @@ class tribe(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Person Tribes'
@@ -102,6 +117,9 @@ class nationality(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Person Nationalities'
         verbose_name = 'Person Nationality'
@@ -116,6 +134,9 @@ class education_level(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Person Education Levels'
@@ -132,11 +153,14 @@ class next_of_kin_type(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Next Of Kin'
         verbose_name = 'Next of Kin'
 
-    ##Animal Lookup
+    # Animal Lookup
 
 
 class animal_type(models.Model):
@@ -148,6 +172,9 @@ class animal_type(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Animal Types'
@@ -164,6 +191,9 @@ class ownership_change_type(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Ownership Change Types'
         verbose_name = 'Ownership Change Type'
@@ -179,6 +209,9 @@ class animal_action_type(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Animal Action Types'
         verbose_name = 'Animal Action Type'
@@ -193,6 +226,9 @@ class breed(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Animal Breeds'
@@ -211,6 +247,9 @@ class dom_skin_color(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Animal Dominant Colours'
         verbose_name = 'Animal Dominant Colour'
@@ -226,6 +265,9 @@ class origin(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Origins'
         verbose_name = 'animal_origin'
@@ -240,6 +282,9 @@ class status(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Statuses'
@@ -257,6 +302,9 @@ class est_type(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Establishment Types'
         verbose_name = 'Establishment Type'
@@ -273,12 +321,15 @@ class tag_status(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Tag Statuses'
         verbose_name = 'Tag Status'
 
 
-##Incident Lookups
+# Incident Lookups
 class incident_type(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
@@ -288,6 +339,9 @@ class incident_type(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Incident Types'
@@ -305,12 +359,15 @@ class incident_priority_level(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Incident Levels'
         verbose_name = 'Incident Level'
 
 
-##TagInstaller
+# TagInstaller
 class operation_status(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
@@ -321,11 +378,14 @@ class operation_status(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Operation Statuses'
         verbose_name = 'Operation Status'
 
-    ##Animal Transfer Purpose
+    # Animal Transfer Purpose
 
 
 class transfer_purpose(models.Model):
@@ -337,6 +397,9 @@ class transfer_purpose(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Transfer Purposes'
@@ -353,6 +416,9 @@ class transit_category(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Transfer Natures'
         verbose_name = 'Transfer Nature'
@@ -367,6 +433,9 @@ class movement_type(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Movement Types'
@@ -383,12 +452,15 @@ class transfer_status(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Transfer Statuses'
         verbose_name = 'Transfer Status'
 
 
-##Vehicle
+# Vehicle
 
 class vehicle_make(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -399,6 +471,9 @@ class vehicle_make(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Vehicle Makes'
@@ -415,6 +490,9 @@ class vehicle_model(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Vehicle Models'
         verbose_name = 'Vehicle Model'
@@ -429,6 +507,9 @@ class transfer_fee_type(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Transfer Fee Types'
@@ -445,6 +526,9 @@ class payment_mode(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Payment Modes'
         verbose_name = 'Payment Mode'
@@ -459,6 +543,9 @@ class payment_channel(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Payment Channels'
@@ -477,6 +564,9 @@ class quarantine_reason(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Quarantine Reasons'
         verbose_name = 'Quarantine Reason'
@@ -491,6 +581,9 @@ class quarantine_status(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Quarantine Statuses'
@@ -507,6 +600,9 @@ class role(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Role'
         verbose_name = 'Roles'
@@ -521,6 +617,9 @@ class transfer_action_type(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Transport Action Types'
@@ -537,6 +636,9 @@ class mode_of_transport(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Transport Modes'
         verbose_name = 'Transport Mode'
@@ -552,6 +654,9 @@ class market_type(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Market Types'
