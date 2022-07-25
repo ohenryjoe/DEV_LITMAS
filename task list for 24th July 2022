@@ -1,0 +1,8 @@
+Tasks by the LITMAS team by Saturday 23rd July and we meet on 24th Sunday 2022 at 11 am to review
+
+1. Henry to create all the proper audit populations created_by, modified_by modifications in the models
+2. Nowa create the groups/roles also to be exported for importing
+3. Nowa to create data in the lookup data and export files for any postgres database 
+4. Nowa to create user account creation and user to person relationship.......
+5. Mwai to do person and organisation registration - with dependency to complete after user authentication module is complete
+6. Henry to do animal and establishment (e.g. farm) registration.

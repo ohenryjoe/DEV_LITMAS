@@ -54,8 +54,8 @@ admin.site.register(district, districtAdmin)
 admin.site.register(region, regionAdmin)
 admin.site.register(sub_region, sub_regionAdmin)
 admin.site.register(county, countyAdmin)
-admin.site.register(subcounty,subcountyAdmin)
-admin.site.register(parish,parishAdmin)
-admin.site.register(village,villageAdmin)
+admin.site.register(subcounty, subcountyAdmin)
+admin.site.register(parish, parishAdmin)
+admin.site.register(village, villageAdmin)
 
 # Register your models here.

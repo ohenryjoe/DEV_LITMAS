@@ -108,23 +108,23 @@ DATABASES = {
     #         'NAME': BASE_DIR / 'db.sqlite3',
     #     },
     #
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'litmas',
-    #     'USER': 'root',
-    #     'PASSWORD': 'abc123',
-    #     'HOST': 'localhost',
-    #     'PORT': '3306',
-    # }
-    #
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'litmas',
-        'USER': 'postgres',
-        'PASSWORD': 'Uav885v!',
-        'HOST': '35.192.136.243',
-        'PORT': '5432',
+        'USER': 'root',
+        'PASSWORD': 'abc123',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
+    #
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'litmas',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'Uav885v!',
+    #     'HOST': '35.192.136.243',
+    #     'PORT': '5432',
+    # }
 }
 
 # Password validation

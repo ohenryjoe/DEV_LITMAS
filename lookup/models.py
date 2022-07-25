@@ -31,6 +31,10 @@ class org_type(models.Model):
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name_plural = 'Organization Types'
+        verbose_name = 'Organization Type'
+
     def __str__(self):
         return self.name
 
@@ -85,8 +89,8 @@ class title(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Person Titles'
-        verbose_name = 'Person Title'
+        verbose_name_plural = 'Titles'
+        verbose_name = 'Title'
 
 
 class tribe(models.Model):
@@ -219,6 +223,7 @@ class animal_action_type(models.Model):
 
 class breed(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    animal_type = models.ForeignKey(animal_type, db_constraint=False, default=None, on_delete=models.PROTECT)
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=400, null=True, blank=True)
     active = models.BooleanField(default=False)
@@ -273,7 +278,7 @@ class origin(models.Model):
         verbose_name = 'animal_origin'
 
 
-class status(models.Model):
+class animal_status(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=400, null=True, blank=True)
@@ -287,8 +292,8 @@ class status(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Statuses'
-        verbose_name = 'status'
+        verbose_name_plural = 'Animal Statuses'
+        verbose_name = 'Animal Status'
 
 
 # Establishment
@@ -420,8 +425,8 @@ class transit_category(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Transfer Natures'
-        verbose_name = 'Transfer Nature'
+        verbose_name_plural = 'Transit Categories'
+        verbose_name = 'Transit Category'
 
 
 class movement_type(models.Model):
@@ -622,8 +627,8 @@ class transfer_action_type(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Transport Action Types'
-        verbose_name = 'Transport Action Type'
+        verbose_name_plural = 'Transfer Action Types'
+        verbose_name = 'Transfer Action Type'
 
 
 class mode_of_transport(models.Model):

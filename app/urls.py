@@ -1,3 +1,4 @@
+import animal.views
 from . import views
 from django.urls import path
 
@@ -5,6 +6,7 @@ app_name = 'app'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('animal/register', animal.views.register_animal, name='register_animal'),
     path('about', views.about, name='about'),
     path('accordion', views.accordion, name='accordion'),
     path('alerts', views.alerts, name='alerts'),

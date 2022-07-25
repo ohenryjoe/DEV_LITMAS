@@ -15,6 +15,12 @@ class est_typeAdmin(admin.ModelAdmin):
         return form
 
 
+class org_typeAdmin(est_typeAdmin):
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(org_typeAdmin, self).get_form(request, obj, **kwargs)
+        return form
+
+
 class sexAdmin(est_typeAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super(sexAdmin, self).get_form(request, obj, **kwargs)
@@ -27,7 +33,7 @@ class identity_typeAdmin(est_typeAdmin):
         return form
 
 
-class titleAdmin(admin.ModelAdmin):
+class titleAdmin(est_typeAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super(titleAdmin, self).get_form(request, obj, **kwargs)
         return form
@@ -63,9 +69,9 @@ class animal_typeAdmin(est_typeAdmin):
         return form
 
 
-class statusAdmin(est_typeAdmin):
+class animal_statusAdmin(est_typeAdmin):
     def get_form(self, request, obj=None, **kwargs):
-        form = super(statusAdmin, self).get_form(request, obj, **kwargs)
+        form = super(animal_statusAdmin, self).get_form(request, obj, **kwargs)
         return form
 
 
@@ -177,6 +183,12 @@ class mode_of_transportAdmin(est_typeAdmin):
         return form
 
 
+class market_typeAdmin(est_typeAdmin):
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(market_typeAdmin, self).get_form(request, obj, **kwargs)
+        return form
+
+
 class animal_action_typeAdmin(est_typeAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super(animal_action_typeAdmin, self).get_form(request, obj, **kwargs)
@@ -189,7 +201,14 @@ class ownership_change_typeAdmin(est_typeAdmin):
         return form
 
 
+class movement_typeAdmin(est_typeAdmin):
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(movement_typeAdmin, self).get_form(request, obj, **kwargs)
+        return form
+
+
 admin.site.register(est_type, est_typeAdmin)
+admin.site.register(org_type, org_typeAdmin)
 admin.site.register(sex, sexAdmin)
 admin.site.register(identity_doc_type, identity_typeAdmin)
 admin.site.register(title, titleAdmin)
@@ -201,7 +220,7 @@ admin.site.register(animal_type, animal_typeAdmin)
 admin.site.register(breed, breedAdmin)
 admin.site.register(dom_skin_color, dom_skin_colorAdmin)
 admin.site.register(origin, originAdmin)
-admin.site.register(status, statusAdmin)
+admin.site.register(animal_status, animal_statusAdmin)
 admin.site.register(tag_status, tag_statusAdmin)
 admin.site.register(incident_type, incident_typeAdmin)
 admin.site.register(incident_priority_level, incident_priority_levelAdmin)
@@ -212,6 +231,7 @@ admin.site.register(vehicle_make, vehicle_makeAdmin)
 admin.site.register(vehicle_model, vehicle_modelAdmin)
 admin.site.register(transfer_fee_type, transfer_fee_typeAdmin)
 admin.site.register(payment_mode, payment_modeAdmin)
+admin.site.register(movement_type, movement_typeAdmin)
 admin.site.register(payment_channel, payment_modeAdmin)
 admin.site.register(quarantine_status, quarantine_statusAdmin)
 admin.site.register(quarantine_reason, quarantine_reasonAdmin)
@@ -219,3 +239,4 @@ admin.site.register(transfer_action_type, transfer_action_typeAdmin)
 admin.site.register(mode_of_transport, mode_of_transportAdmin)
 admin.site.register(animal_action_type, animal_action_typeAdmin)
 admin.site.register(ownership_change_type, ownership_change_typeAdmin)
+admin.site.register(market_type, market_typeAdmin)

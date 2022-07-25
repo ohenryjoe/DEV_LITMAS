@@ -4,7 +4,7 @@ from operator import concat
 from django.db import models
 
 # Create your models here.
-from lookup.models import sex, animal_type, breed, status, origin, dom_skin_color, ownership_change_type, \
+from lookup.models import sex, animal_type, breed, animal_status, origin, dom_skin_color, ownership_change_type, \
     animal_action_type
 from person.models import person
 from organisation.models import organisation
@@ -18,11 +18,11 @@ class animal(models.Model):
     breed = models.ForeignKey(breed, default=None, on_delete=models.PROTECT)
     dominant_colour = models.ForeignKey(dom_skin_color, default=None, on_delete=models.PROTECT)
     origin = models.ForeignKey(origin, on_delete=models.PROTECT)
-    status = models.ForeignKey(status, on_delete=models.PROTECT)
+    status = models.ForeignKey(animal_status, on_delete=models.PROTECT)
     person = models.ForeignKey(person, on_delete=models.PROTECT)
     org = models.ForeignKey(organisation, default=None, on_delete=models.PROTECT)
     est = models.ForeignKey(establishment, default=None, on_delete=models.PROTECT)
-    animal_number = models.CharField(max_length=30, default='')
+    animal_number = models.CharField(max_length=30, default=None)
     name = models.CharField(max_length=100, default=None)
     date_of_birth = models.DateField()
     date_obtained = models.DateField(null=True, blank=True)
