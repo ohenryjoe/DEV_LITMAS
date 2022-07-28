@@ -1,12 +1,21 @@
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
+
 import animal.views
 from . import views
-from django.urls import path
 
 app_name = 'app'
 
-urlpatterns = [
+from litmas import settings
+
+admin.site.site_header = 'LITMAS'
+admin.site.site_title = 'LITMAS Admin'
+admin.site.index_title = 'Livestock Traceability Management System'
+admin.empty_value_display = '**Empty**'
+
+urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
     path('', views.index, name='index'),
-    path('animal/register', animal.views.register_animal, name='register_animal'),
     path('about', views.about, name='about'),
     path('accordion', views.accordion, name='accordion'),
     path('alerts', views.alerts, name='alerts'),

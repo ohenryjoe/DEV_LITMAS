@@ -1,0 +1,6 @@
+1. breed table needs animal type
+2. add market type table
+3. Title table does not auto store created by and modified by fields.
+4. There is no table called status. Please follow the DMD.
+5. There is no table called transfer_nature - make it transit_category
+6. tHERE is no transport_action_type table. Fix Meta Class.

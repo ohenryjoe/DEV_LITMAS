@@ -1,0 +1,276 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link href=" {% static 'assets/css/animated.css' %} " rel="stylesheet"/>
+    <style>
+        .note-editable {
+            background-color: white !important;
+            color: black !important;
+        }
+
+        .form-bg {
+            background-color: #f1f1f1;
+        }
+
+        .sw-toolbar.sw-toolbar-bottom.justify-content-end {
+            background-color: #f1f1f1;
+            padding: 0 50px 30px 50px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Animal Registration</h1>
+        </div>
+        <div class="ms-auto pageheader-btn">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Animal</a></li>
+                <li class="breadcrumb-item active" aria-current="page"> Registration</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="px-3">
+            <div class="card">
+                <div class="card-header border-bottom">
+                    <div class="card-title">
+                        You are registering a New Animal
+                    </div>
+                </div>
+            </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {% if 'danger' in message.tags %}
+                            <i class="fe fe-slash">&nbsp;</i>
+                        {% elif 'success' in message.tags %}
+                            <i class="fe fe-check-square">&nbsp;</i>
+                        {% elif 'warning' in message.tags %}
+                            <i class="fe fe-info">&nbsp;</i>
+                        {% endif %}
+                        <strong>&nbsp;{{ message.tags.upper }}:&nbsp;</strong>{{ message }}
+                        <span type="button" class="btn-close-white btn-close text-lighter"
+                              data-bs-dismiss="alert"
+                              aria-label="Close"></span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form method="post" id="AnimalForm" class="form-bg"
+                  data-divs-url="animal/ajax/load-breeds" novalidate>
+                {% csrf_token %}
+                <div id="smartwizard-3" class="form-bg">
+                    <ul>
+                        <li><a href="#step-10">Bio Information</a></li>
+                        <li><a href="#step-11">Origin and Ownership</a></li>
+                        <li><a href="#step-12">Animal Description</a></li>
+                        <li><a href="#step-13">Animal Photos and Consent</a></li>
+                    </ul>
+                    <div class="mx-lg-5 my-0">
+                        <div id="step-10" style="min-height:400px;background-color: #f1f1f1">
+                            <form>
+                                <div class="row">
+                                    <div class="control-group form-group col-lg-5">
+                                        <label class="form-label" for="name">Select Animal Type</label>
+                                        {{ form.animal_type }}
+                                        {#                                        <span class="error">You must select an animal type!</span>#}
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5">
+                                        <label class="form-label" for="name">Select Animal Breed</label>
+                                        {{ form.breed }}
+                                        {#                                        <span class="error">You must select an animal breed!</span>#}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="control-group form-group  col-lg-5">
+                                        <label class="form-label" for="name">Select Sex of Animal</label>
+                                        {{ form.sex }}
+                                        {#                                        <span class="error">You must select an animal breed!</span>#}
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5">
+                                        <label class="form-label" for="name">Select Dominant Colour</label>
+                                        {{ form.dominant_colour }}
+                                        {#                                        <span class="error">You must select an animal breed!</span>#}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="control-group form-group col-lg-5">
+                                        <label class="form-label" for="name">Select Origin of Animal</label>
+                                        {{ form.origin }}
+                                        {#                                        <span class="error">You must select the oorigin of animal!</span>#}
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5">
+                                        <label class="form-label" for="name">Select Animal Establishment</label>
+                                        {{ form.est }}
+                                        {#                                        <span class="error">You must select an establishment!</span>#}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="step-11" style="min-height: 400px;background-color: #f1f1f1">
+                            <form>
+                                <div class="row">
+                                    <div class="control-group form-group col-lg-5 mb-lg-3">
+                                        <label class="form-label" for="name">Select Organization if Owner is
+                                            non-Individual</label>
+                                        {{ form.org }}
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5">
+                                        <label class="form-label" for="name">Select Person if Owner is
+                                            Individual</label>
+                                        {{ form.person }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="control-group form-group col-lg-5">
+                                        <label class="form-label" for="name">Enter name of Animal</label>
+                                        {{ form.name }}
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group col-lg-5">
+                                        <label class="form-label" for="name">Select Animal Status</label>
+                                        {{ form.status }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="step-12" style="min-height: 400px;background-color: #f1f1f1">
+                            <form>
+                                <div class="row">
+                                    <label class="form-label" for="name">Describe the animal below </label>
+                                    <div class="control-group form-group">
+                                        <p>{{ form.description }}</p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="step-13" style="min-height: 400px;background-color: #f1f1f1">
+                            <div class="row">
+                                <div class="col-lg-12 d-lg-flex">
+                                    <div class="control-group form-group col-lg-6" style="height:400px;">
+                                        <label class="form-label" for="name">Front Photo</label>
+                                        <p>{{ form.front_photo }}</p>
+                                    </div>
+
+                                    <div class="control-group form-group col-lg-6">
+                                        <label class="form-label" for="name">Side Photo</label>
+                                        <p>{{ form.side_photo }}</p>
+                                    </div>
+                                </div>
+                                <p>
+
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name="example-checkbox2"
+                                               value="option2">
+                                        <span class="custom-control-label text-success">I confirm that the information provided in this form abou the animal is correct and accurate to the best of my understanding.</span>
+                                    </label>
+
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script src=" {% static 'assets/plugins/sweet-alert/sweetalert.min.js' %} "></script>
+    <script src=" {% static 'assets/plugins/sweet-alert/jquery.sweet-alert.js' %} "></script>
+
+    <!-- THEMECOLORS JS -->
+    <script src="{% static 'assets/js/themeColors.js' %}"></script>
+
+
+    <!-- FORM WIZARD JS-->
+    <script src=" {% static 'assets/plugins/formwizard/jquery.smartWizard.js' %} "></script>
+    <script src=" {% static 'assets/plugins/formwizard/fromwizard.js' %} "></script>
+
+    <!-- INTERNAl JQUERY.STEPS JS -->
+    <script src=" {% static 'assets/plugins/jquery-steps/jquery.steps.min.js' %} "></script>
+    <script src=" {% static 'assets/plugins/parsleyjs/parsley.min.js' %} "></script>
+
+    <!-- INTERNAL ACCORDION-WIZARD-FORM JS-->
+    <script src=" {% static 'assets/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js' %} "></script>
+    <script src=" {% static 'assets/js/form-wizard.js' %} "></script>
+
+    <!-- THEMECOLORS JS -->
+    <script src="{% static 'assets/js/themeColors.js' %}"></script>
+    <!-- INTERNAL Summernote Editor js -->
+    <script src=" {% static 'assets/plugins/summernote-editor/summernote1.js' %} "></script>
+    <script src=" {% static 'assets/js/summernote.js' %} "></script>
+
+    <!-- WYSIWYG Editor JS -->
+    <script src=" {% static 'assets/plugins/wysiwyag/jquery.richtext.js' %} "></script>
+    <script src=" {% static 'assets/plugins/wysiwyag/wysiwyag.js' %} "></script>
+
+    <!-- FORMEDITOR JS -->
+    <script src=" {% static 'assets/plugins/quill/quill.min.js' %} "></script>
+    <script src=" {% static 'assets/js/form-editor2.js' %} "></script>
+
+    <!-- THEMECOLORS JS -->
+    <script src="{% static 'assets/js/themeColors.js' %}"></script>
+    <!--Internal Fancy uploader js-->
+    <script src=" {% static 'assets/plugins/fileuploads/js/fileupload.js' %} "></script>
+    <script src=" {% static 'assets/plugins/fileuploads/js/file-upload.js' %} "></script>
+
+    <!--Internal Fancy uploader js-->
+    <script src=" {% static 'assets/plugins/fancyuploder/jquery.ui.widget.js' %} "></script>
+    <script src=" {% static 'assets/plugins/fancyuploder/jquery.fileupload.js' %} "></script>
+    <script src=" {% static 'assets/plugins/fancyuploder/jquery.iframe-transport.js' %} "></script>
+    <script src=" {% static 'assets/plugins/fancyuploder/jquery.fancy-fileupload.js' %} "></script>
+    <script src=" {% static 'assets/plugins/fancyuploder/fancy-uploader.js' %} "></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#id_animal_type").change(function () {
+            const url = '/animal/ajax/load-breeds';
+            const animal_type = $(this).val();
+            const elem = document.getElementById('id_dominant_colour');
+            elem.selectedIndex = 0;
+            $.ajax({
+                url: url,
+                data: {
+                    'animal_type': animal_type
+                },
+                success: function (data) {
+                    $("#id_breed").html(data);
+                }
+            });
+        });
+    </script>
+    <script>
+          $("#id_breed").change(function () {
+            const url = '/animal/ajax/load-colours';
+            const breed = $(this).val();
+            $.ajax({
+                url: url,
+                data: {
+                    'breed': breed
+                },
+                success: function (data) {
+                    $("#id_dominant_colour").html(data);
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{% endblock %}

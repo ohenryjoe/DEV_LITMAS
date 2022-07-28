@@ -42,4 +42,14 @@ class breed_form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(breed_form, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_show_labels = False
+        self.fields['breed'].queryset = breed.objects.none()
+
+        if 'animal_type' in self.data:
+            try:
+                animal_type = int(self.data.get('animal_type'))
+                self.fields['department'].queryset = breed.objects.filter(animal_type__id=animal_type).order_by(
+                    'name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['breed'].queryset = self.instance.animal_type.breed_set.order_by('name')

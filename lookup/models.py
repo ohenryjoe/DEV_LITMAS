@@ -238,6 +238,7 @@ class breed(models.Model):
     class Meta:
         verbose_name_plural = 'Animal Breeds'
         verbose_name = 'Animal Breed'
+        unique_together = ('animal_type', 'name')
 
 
 class dom_skin_color(models.Model):
@@ -258,6 +259,7 @@ class dom_skin_color(models.Model):
     class Meta:
         verbose_name_plural = 'Animal Dominant Colours'
         verbose_name = 'Animal Dominant Colour'
+        unique_together = ('animal_type', 'breed','name')
 
 
 class origin(models.Model):

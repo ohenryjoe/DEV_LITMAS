@@ -26,6 +26,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.contrib import messages
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
@@ -80,7 +82,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'litmas.urls'
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -92,11 +93,18 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
 ]
-
+MESSAGE_TAGS = {
+        messages.DEBUG: 'light',
+        messages.INFO: 'info',
+        messages.SUCCESS: 'success',
+        messages.WARNING: 'warning',
+        messages.ERROR: 'danger',
+ }
 WSGI_APPLICATION = 'litmas.wsgi.application'
 
 # Database
@@ -110,7 +118,7 @@ DATABASES = {
     #
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'litmas',
+        'NAME': 'litmas_new',
         'USER': 'root',
         'PASSWORD': 'abc123',
         'HOST': 'localhost',
@@ -160,8 +168,11 @@ HTML_MINIFY = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MEDIA_ROOT = os.path.join(CORE_DIR, 'media')
+MEDIA_URL = '/media/'
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR]
 print(STATIC_DIR)
 

@@ -1,0 +1,71 @@
+<div class="card-body bg-gray-100">
+    <div id="wizard3" class="bg-gray-100">
+        <h4>Genetic Information</h4>
+        <div class="bg">
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Animal Type</label>
+                {{ form.animal_type }}
+            </div>
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Animal Breed</label>
+                {{ form.breed }}
+            </div>
+
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Sex of Animal</label>
+                {{ form.sex }}
+            </div>
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Dominant Colour</label>
+                {{ form.dominant_colour }}
+            </div>
+
+        </div>
+        <h4>Basic Information</h4>
+        <div>
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Origin of animal</label>
+                {{ form.origin }}
+            </div>
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Person if Owner is Individual</label>
+                {{ form.person }}
+            </div>
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Organization if Owner is
+                    non-Individual</label>
+                {{ form.org }}
+            </div>
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Establishment</label>
+                {{ form.est }}
+            </div>
+        </div>
+        <h4>Additional Details</h4>
+        <div>
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Origin of animal</label>
+                {{ form.origin }}
+            </div>
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Person if Owner is Individual</label>
+                {{ form.person }}
+            </div>
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Select Organization if Owner is
+                    non-Individual</label>
+                {{ form.org }}
+            </div>
+            <div class="control-group form-group">
+                <label class="form-label" for="name">Name</label>
+                {{ form.name }}
+            </div>
+        </div>
+        <h4>Animal Description</h4>
+        <div>
+            <div class="control-group form-group">
+                <p>{{ form.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
