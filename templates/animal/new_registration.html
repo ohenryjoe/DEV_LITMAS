@@ -9,6 +9,7 @@
             color: black !important;
         }
 
+
         .form-bg {
             background-color: #f1f1f1;
         }
@@ -35,7 +36,6 @@
             </ol>
         </div>
     </div>
-
     <div class="row">
         <div class="px-3">
             <div class="card">
@@ -44,26 +44,60 @@
                         You are registering a New Animal
                     </div>
                 </div>
-            </div>
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                        {% if 'danger' in message.tags %}
-                            <i class="fe fe-slash">&nbsp;</i>
-                        {% elif 'success' in message.tags %}
-                            <i class="fe fe-check-square">&nbsp;</i>
-                        {% elif 'warning' in message.tags %}
-                            <i class="fe fe-info">&nbsp;</i>
+                {% if messages %}
+
+                    {% if form.errors %}
+                        <div class="p-3 bg-gray-300 m-lg-3 m-md-3 m-sm-1 alert alert-{{ message.tags }} alert-dismissible fade show"
+                             role="alert">
+                            <div class="card-title">
+                                Your Animal Registration Form has ERRORS. Please check the following fields!
+                            </div>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ field.label }}:</strong> {{ error|escape }}
+                                        <span type="button"
+                                              class="btn btn-sm fw-lighter btn-close-danger btn-close text-danger "
+                                              data-bs-dismiss="alert"
+                                              aria-label="Close"></span>
+                                    </div>
+                                {% endfor %}
+
+                            {% endfor %}
+                            <span type="button" class="btn-close btn-sm btn-close text-lighter"
+                                  data-bs-dismiss="alert"
+                                  aria-label="Close">
+                            </span>
+                        </div>
+                    {% else %}
+                        {% if messages %}
+                            <div class="card-body mt-3 alert alert-success alert-dismissible fade show">
+                                {% for message in messages %}
+
+                                    {% if 'danger' in message.tags %}
+                                    {% elif 'success' in message.tags %}
+                                        <i class="fe fe-check-square">&nbsp;</i>
+                                        <strong>&nbsp;{{ message.tags.upper }}:&nbsp;</strong>{{ message }}
+                                    {% elif 'warning' in message.tags %}
+                                        <i class="fe fe-info">&nbsp;</i>
+                                        <strong>&nbsp;{{ message.tags.upper }}:&nbsp;</strong>{{ message }}
+                                    {% endif %}
+
+
+                                {% endfor %}
+                                <span type="button" class="btn-close btn-sm btn-close text-lighter"
+                                      data-bs-dismiss="alert"
+                                      aria-label="Close"></span>
+                            </div>
                         {% endif %}
-                        <strong>&nbsp;{{ message.tags.upper }}:&nbsp;</strong>{{ message }}
-                        <span type="button" class="btn-close-white btn-close text-lighter"
-                              data-bs-dismiss="alert"
-                              aria-label="Close"></span>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            <form method="post" id="AnimalForm" class="form-bg"
-                  data-divs-url="animal/ajax/load-breeds" novalidate>
+                    {% endif %}
+
+
+                {% endif %}
+            </div>
+
+            <form method="post" id="AnimalForm" name="AnimalRegistration" class="form-bg"
+                  data-divs-url="animal/ajax/load-breeds" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <div id="smartwizard-3" class="form-bg">
                     <ul>
@@ -74,30 +108,30 @@
                     </ul>
                     <div class="mx-lg-5 my-0">
                         <div id="step-10" style="min-height:400px;background-color: #f1f1f1">
-                            <form>
+                            <section>
                                 <div class="row">
                                     <div class="control-group form-group col-lg-5">
                                         <label class="form-label" for="name">Select Animal Type</label>
                                         {{ form.animal_type }}
-                                        {#                                        <span class="error">You must select an animal type!</span>#}
+                                        <span class="error">{{ form.animal_type.errors }}</span>
                                     </div>
                                     <div class="col-lg-2"></div>
                                     <div class="control-group form-group  col-lg-5">
                                         <label class="form-label" for="name">Select Animal Breed</label>
                                         {{ form.breed }}
-                                        {#                                        <span class="error">You must select an animal breed!</span>#}
+                                        <span class="help_text">{{ form.breed.errors }}</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="control-group form-group  col-lg-5">
-                                        <label class="form-label" for="name">Select Sex of Animal</label>
-                                        {{ form.sex }}
+                                        <label class="form-label" for="name">Select Dominant Colour</label>
+                                        {{ form.dominant_colour }}
                                         {#                                        <span class="error">You must select an animal breed!</span>#}
                                     </div>
                                     <div class="col-lg-2"></div>
                                     <div class="control-group form-group  col-lg-5">
-                                        <label class="form-label" for="name">Select Dominant Colour</label>
-                                        {{ form.dominant_colour }}
+                                        <label class="form-label" for="name">Select Sex of Animal</label>
+                                        {{ form.sex }}
                                         {#                                        <span class="error">You must select an animal breed!</span>#}
                                     </div>
                                 </div>
@@ -114,23 +148,10 @@
                                         {#                                        <span class="error">You must select an establishment!</span>#}
                                     </div>
                                 </div>
-                            </form>
+                            </section>
                         </div>
                         <div id="step-11" style="min-height: 400px;background-color: #f1f1f1">
-                            <form>
-                                <div class="row">
-                                    <div class="control-group form-group col-lg-5 mb-lg-3">
-                                        <label class="form-label" for="name">Select Organization if Owner is
-                                            non-Individual</label>
-                                        {{ form.org }}
-                                    </div>
-                                    <div class="col-lg-2"></div>
-                                    <div class="control-group form-group  col-lg-5">
-                                        <label class="form-label" for="name">Select Person if Owner is
-                                            Individual</label>
-                                        {{ form.person }}
-                                    </div>
-                                </div>
+                            <section>
                                 <div class="row">
                                     <div class="control-group form-group col-lg-5">
                                         <label class="form-label" for="name">Enter name of Animal</label>
@@ -142,29 +163,76 @@
                                         {{ form.status }}
                                     </div>
                                 </div>
-                            </form>
+                                <div class="row">
+                                    <div class="control-group form-group col-lg-5 mb-lg-3">
+                                        <label class="form-label" for="name">Select type of Ownership
+                                            <select class="form-control select2 form-select"
+                                                    data-placeholder="Type of Ownership" id="Owner_Type">
+                                                <option label="Choose one"></option>
+                                                <option value="0">Individual</option>
+                                                <option value="1">Non-Individual</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5" id="PersonOwner">
+                                        <label class="form-label">Select Personal Owner</label>
+                                        {{ form.person }}
+                                    </div>
+                                    <div class="control-group form-group  col-lg-5" id="OrgOwner">
+                                        <label class="form-label">Select Organizational Owner</label>
+                                        {{ form.org }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="control-group form-group col-lg-5">
+                                        <label class="form-label" for="name">Date of Death</label>
+                                        {{ form.date_of_death }}
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group col-lg-2">
+                                        <label for="datepickerNoOfMonths">Date obtained</label>
+                                        <div class="input-group">
+                                            <div class="input-group-text bg-primary-transparent text-primary">
+                                                <i class="fe fe-calendar text-20"></i>
+                                            </div>
+                                            <input class="form-control" id="datepickerNoOfMonths"
+                                                   placeholder="MM/DD/YYYY"
+                                                   type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-1"></div>
+                                    <div class="control-group form-group col-lg-2">
+                                        <label class="form-label" for="name">Date of Birth</label>
+                                        {{ form.date_of_birth }}
+                                    </div>
+                                </div>
+                            </section>
                         </div>
                         <div id="step-12" style="min-height: 400px;background-color: #f1f1f1">
-                            <form>
+                            <section>
                                 <div class="row">
                                     <label class="form-label" for="name">Describe the animal below </label>
                                     <div class="control-group form-group">
                                         <p>{{ form.description }}</p>
                                     </div>
                                 </div>
-                            </form>
+                            </section>
                         </div>
                         <div id="step-13" style="min-height: 400px;background-color: #f1f1f1">
                             <div class="row">
                                 <div class="col-lg-12 d-lg-flex">
                                     <div class="control-group form-group col-lg-6" style="height:400px;">
                                         <label class="form-label" for="name">Front Photo</label>
-                                        <p>{{ form.front_photo }}</p>
+                                        <input name="front_photo" id="id_front_photo" type="file" class="dropify"
+                                               data-max-file-size="300K"/>
                                     </div>
 
                                     <div class="control-group form-group col-lg-6">
                                         <label class="form-label" for="name">Side Photo</label>
-                                        <p>{{ form.side_photo }}</p>
+                                        <input name="side_photo" id="id_side_photo" type="file" class="dropify"
+                                               data-max-file-size="300K"/>
                                     </div>
                                 </div>
                                 <p>
@@ -190,6 +258,36 @@
 {% endblock %}
 
 {% block scripts %}
+    <script>
+        const person = document.getElementById("PersonOwner");
+        const org = document.getElementById("OrgOwner");
+        $(document).ready(function () {
+            $("#OrgOwner").hide();
+            $("#PersonOwner").hide();
+        });
+        let select = document.querySelector('#Owner_Type');
+        select.addEventListener('change', function () {
+            if (this.selectedIndex === 1) {
+                org.style.display = 'none';
+                person.style.display = 'block';
+            } else if (this.selectedIndex === 2) {
+                org.style.display = 'block';
+                person.style.display = 'none';
+            } else {
+                org.style.display = 'none';
+                person.style.display = 'none';
+            }
+        });
+
+    </script>
+
+    <!-- FORM ELEMENTS JS -->
+    <script src=" {% static 'assets/js/formelementadvnced.js' %} "></script>
+
+    <!-- THEMECOLORS JS -->
+    <script src="{% static 'assets/js/themeColors.js' %}"></script>
+
+
     <script src=" {% static 'assets/plugins/sweet-alert/sweetalert.min.js' %} "></script>
     <script src=" {% static 'assets/plugins/sweet-alert/jquery.sweet-alert.js' %} "></script>
 
@@ -239,8 +337,18 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
+        $(document).ready(function () {
+            nextbtn = document.getElementsByClassName('btn btn-primary sw-btn-next disabled')
+            sbbtn = document.getElementsByClassName('sw-btn-group-extra')
+            sbbtn.style.display='none';
+            if (nextbtn) {
+               sbbtn.style.display='block';
+            }
+        });
+    </script>
+    <script>
         $("#id_animal_type").change(function () {
-            const url = '/animal/ajax/load-breeds';
+            const url = '/ajax/load-breeds';
             const animal_type = $(this).val();
             const elem = document.getElementById('id_dominant_colour');
             elem.selectedIndex = 0;
@@ -256,8 +364,8 @@
         });
     </script>
     <script>
-          $("#id_breed").change(function () {
-            const url = '/animal/ajax/load-colours';
+        $("#id_breed").change(function () {
+            const url = '/ajax/load-colours';
             const breed = $(this).val();
             $.ajax({
                 url: url,

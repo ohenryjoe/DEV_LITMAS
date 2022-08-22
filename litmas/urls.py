@@ -15,10 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+
+import animal.views
+from animal import views
+
+
+router = routers.DefaultRouter()
+router.register(r'animals', views.AnimalListViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
-    path('animal/', include("animal.urls")),  # Animals Route
     path('Auth/', include('authentication.urls')),
+    path('api/', include(router.urls)),
+
 ]

@@ -1,0 +1,431 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link href=" {% static 'assets/css/animated.css' %} " rel="stylesheet"/>
+    <style>
+        .note-editable {
+            background-color: white !important;
+            color: black !important;
+        }
+
+
+        .form-bg {
+            background-color: #f1f1f1;
+        }
+
+        .sw-toolbar.sw-toolbar-bottom.justify-content-end {
+            background-color: #f1f1f1;
+            padding: 0 50px 30px 50px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Animal Registration</h1>
+        </div>
+        <div class="ms-auto pageheader-btn">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Animal</a></li>
+                <li class="breadcrumb-item active" aria-current="page"> Registration</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="px-3">
+            <div class="card">
+                <div class="card-header border-bottom">
+                    <div class="card-title">
+                        You are registering a New Establishment
+                    </div>
+                </div>
+                {% if messages %}
+
+                    {% if form.errors %}
+                        <div class="p-3 bg-gray-300 m-lg-3 m-md-3 m-sm-1 alert alert-{{ message.tags }} alert-dismissible fade show"
+                             role="alert">
+                            <div class="card-title">
+                                Your Establishment Registration Form has ERRORS. Please check the following fields!
+                            </div>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>{{ field.label }}:</strong> {{ error|escape }}
+                                        <span type="button"
+                                              class="btn btn-sm fw-lighter btn-close-danger btn-close text-danger "
+                                              data-bs-dismiss="alert"
+                                              aria-label="Close"></span>
+                                    </div>
+                                {% endfor %}
+
+                            {% endfor %}
+                            <span type="button" class="btn-close btn-sm btn-close text-lighter"
+                                  data-bs-dismiss="alert"
+                                  aria-label="Close">
+                            </span>
+                        </div>
+                    {% else %}
+                        {% if messages %}
+                            <div class="card-body mt-3 alert alert-success alert-dismissible fade show">
+                                {% for message in messages %}
+
+                                    {% if 'danger' in message.tags %}
+                                    {% elif 'success' in message.tags %}
+                                        <i class="fe fe-check-square">&nbsp;</i>
+                                        <strong>&nbsp;{{ message.tags.upper }}:&nbsp;</strong>{{ message }}
+                                    {% elif 'warning' in message.tags %}
+                                        <i class="fe fe-info">&nbsp;</i>
+                                        <strong>&nbsp;{{ message.tags.upper }}:&nbsp;</strong>{{ message }}
+                                    {% endif %}
+
+
+                                {% endfor %}
+                                <span type="button" class="btn-close btn-sm btn-close text-lighter"
+                                      data-bs-dismiss="alert"
+                                      aria-label="Close"></span>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+
+                {% endif %}
+            </div>
+
+            <form method="post" id="AnimalForm" name="AnimalRegistration" class="form-bg"
+                  data-divs-url="animal/ajax/load-breeds" novalidate>
+                {% csrf_token %}
+                <div id="smartwizard-3" class="form-bg">
+                    <ul>
+                        <li><a href="#step-10">First Information</a></li>
+                        <li><a href="#step-11">Location</a></li>
+                    </ul>
+                    <div class="mx-lg-5 my-0">
+                        <div id="step-10" style="min-height:400px;background-color: #f1f1f1">
+                            <section>
+                                <div class="row">
+                                    <div class="control-group form-group col-lg-5">
+                                        <label class="form-label" for="name">Select Establishment Type</label>
+                                        {{ form.est_type }}
+                                        <span class="error">{{ form.est_type.errors }}</span>
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5">
+                                        <label class="form-label" for="name">Enter Name of Establishment</label>
+                                        {{ form.name }}
+                                        <span class="help_text">{{ form.name.errors }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="control-group form-group col-lg-5">
+                                        <label class="form-label" for="name">Enter Year of Establishment</label>
+                                        {{ form.year_est }}
+                                        {#                                        <span class="error">You must select the oorigin of animal!</span>#}
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5">
+                                        <label class="form-label" for="name">Enter Size in Acres</label>
+                                        {{ form.est_size_acres }}
+                                        {#                                        <span class="error">You must select an establishment!</span>#}
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="control-group form-group col-lg-5 mb-lg-3">
+                                        <label class="form-label" for="name">Select type of Ownership
+                                            <select class="form-control select2 form-select"
+                                                    data-placeholder="Type of Ownership" id="Owner_Type">
+                                                <option label="Choose one"></option>
+                                                <option value="0">Individual</option>
+                                                <option value="1">Non-Individual</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5" id="PersonOwner">
+                                        <label class="form-label">Select Personal Owner</label>
+                                        {{ form.person }}
+                                    </div>
+                                    <div class="control-group form-group  col-lg-5" id="OrgOwner">
+                                        <label class="form-label">Select Organizational Owner</label>
+                                        {{ form.org }}
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div id="step-11" style="min-height: 400px;background-color: #f1f1f1">
+                            <section>
+                                <div class="row">
+                                    <div class="control-group form-group  col-lg-5">
+                                        <label class="form-label" for="name">Enter the Longitude</label>
+                                        {{ form.gps_lat }}
+                                        {#                                        <span class="error">You must select an animal breed!</span>#}
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5">
+                                        <label class="form-label" for="name">Enter the Longitude</label>
+                                        {{ form.gps_long }}
+                                        {#                                        <span class="error">You must select an animal breed!</span>#}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="control-group form-group  col-lg-5" id="PersonOwner">
+                                        <label class="form-label">Select Sub-Region</label>
+                                        <select name="subregion" class="form-control select2 form-select" required=""
+                                                id="sub_region">
+                                            <option value="">---------</option>
+                                            {% for tb in subregion %}
+                                                <option value="{{ tb.pk }}">{{ tb.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5" id="OrgOwner">
+                                        <label class="form-label">Select District</label>
+                                        <select name="district" class="form-control select2 form-select" required=""
+                                                id="district">
+                                            <option value="">---------</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="control-group form-group  col-lg-5" id="PersonOwner">
+                                        <label class="form-label">county</label>
+                                        <select name="county" class="form-control select2 form-select" required=""
+                                                id="county">
+                                            <option value="">---------</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5" id="OrgOwner">
+                                        <label class="form-label">Sub-County</label>
+                                        <select name="subcounty" class="form-control select2 form-select" required=""
+                                                id="subcounty">
+                                            <option value="">---------</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="control-group form-group  col-lg-5" id="PersonOwner">
+                                        <label class="form-label">Parish</label>
+                                        <select name="parish" class="form-control select2 form-select" required=""
+                                                id="parish">
+                                            <option value="">---------</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2"></div>
+                                    <div class="control-group form-group  col-lg-5" id="OrgOwner">
+                                        <label class="form-label">Village</label>
+                                        {{ form.village }}
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $("#sub_region").change(function () {
+            const url = '/ajax/load-district';
+            const sub_region = $(this).val();
+            const elem = document.getElementById('district');
+            elem.selectedIndex = 0;
+            $.ajax({
+                url: url,
+                data: {
+                    'sub_region': sub_region
+                },
+                success: function (data) {
+                    $("#district").html(data);
+                }
+            });
+        });
+        $("#district").change(function () {
+            const url = '/ajax/load-county';
+            const district = $(this).val();
+            const elem = document.getElementById('county');
+            elem.selectedIndex = 0;
+            $.ajax({
+                url: url,
+                data: {
+                    'district': district
+                },
+                success: function (data) {
+                    $("#county").html(data);
+                }
+            });
+        });
+        $("#county").change(function () {
+            const url = '/ajax/load-subcounty';
+            const county = $(this).val();
+            const elem = document.getElementById('subcounty');
+            elem.selectedIndex = 0;
+            $.ajax({
+                url: url,
+                data: {
+                    'county': county
+                },
+                success: function (data) {
+                    $("#subcounty").html(data);
+                }
+            });
+        });
+        $("#subcounty").change(function () {
+            const url = '/ajax/load-parish';
+            const subcounty = $(this).val();
+            const elem = document.getElementById('parish');
+            elem.selectedIndex = 0;
+            $.ajax({
+                url: url,
+                data: {
+                    'subcounty': subcounty
+                },
+                success: function (data) {
+                    $("#parish").html(data);
+                }
+            });
+        });
+        $("#parish").change(function () {
+            const url = '/ajax/load-village';
+            const parish = $(this).val();
+            {#const elem = document.getElementById('village');#}
+            {#elem.selectedIndex = 0;#}
+            $.ajax({
+                url: url,
+                data: {
+                    'parish': parish
+                },
+                success: function (data) {
+                    $("#id_village").html(data);
+                }
+            });
+        });
+    </script>
+    <script>
+        const person = document.getElementById("PersonOwner");
+        const org = document.getElementById("OrgOwner");
+        $(document).ready(function () {
+            $("#OrgOwner").hide();
+            $("#PersonOwner").hide();
+        });
+        let select = document.querySelector('#Owner_Type');
+        select.addEventListener('change', function () {
+            if (this.selectedIndex === 1) {
+                org.style.display = 'none';
+                person.style.display = 'block';
+            } else if (this.selectedIndex === 2) {
+                org.style.display = 'block';
+                person.style.display = 'none';
+            } else {
+                org.style.display = 'none';
+                person.style.display = 'none';
+            }
+        });
+    </script>
+
+    <!-- FORM ELEMENTS JS -->
+    <script src=" {% static 'assets/js/formelementadvnced.js' %} "></script>
+
+    <!-- THEMECOLORS JS -->
+    <script src="{% static 'assets/js/themeColors.js' %}"></script>
+
+
+    <script src=" {% static 'assets/plugins/sweet-alert/sweetalert.min.js' %} "></script>
+    <script src=" {% static 'assets/plugins/sweet-alert/jquery.sweet-alert.js' %} "></script>
+
+    <!-- THEMECOLORS JS -->
+    <script src="{% static 'assets/js/themeColors.js' %}"></script>
+
+
+    <!-- FORM WIZARD JS-->
+    <script src=" {% static 'assets/plugins/formwizard/jquery.smartWizard.js' %} "></script>
+    <script src=" {% static 'assets/plugins/formwizard/fromwizard.js' %} "></script>
+
+    <!-- INTERNAl JQUERY.STEPS JS -->
+    <script src=" {% static 'assets/plugins/jquery-steps/jquery.steps.min.js' %} "></script>
+    <script src=" {% static 'assets/plugins/parsleyjs/parsley.min.js' %} "></script>
+
+    <!-- INTERNAL ACCORDION-WIZARD-FORM JS-->
+    <script src=" {% static 'assets/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js' %} "></script>
+    <script src=" {% static 'assets/js/form-wizard.js' %} "></script>
+
+    <!-- THEMECOLORS JS -->
+    <script src="{% static 'assets/js/themeColors.js' %}"></script>
+    <!-- INTERNAL Summernote Editor js -->
+    <script src=" {% static 'assets/plugins/summernote-editor/summernote1.js' %} "></script>
+    <script src=" {% static 'assets/js/summernote.js' %} "></script>
+
+    <!-- WYSIWYG Editor JS -->
+    <script src=" {% static 'assets/plugins/wysiwyag/jquery.richtext.js' %} "></script>
+    <script src=" {% static 'assets/plugins/wysiwyag/wysiwyag.js' %} "></script>
+
+    <!-- FORMEDITOR JS -->
+    <script src=" {% static 'assets/plugins/quill/quill.min.js' %} "></script>
+    <script src=" {% static 'assets/js/form-editor2.js' %} "></script>
+
+    <!-- THEMECOLORS JS -->
+    <script src="{% static 'assets/js/themeColors.js' %}"></script>
+    <!--Internal Fancy uploader js-->
+    <script src=" {% static 'assets/plugins/fileuploads/js/fileupload.js' %} "></script>
+    <script src=" {% static 'assets/plugins/fileuploads/js/file-upload.js' %} "></script>
+
+    <!--Internal Fancy uploader js-->
+    <script src=" {% static 'assets/plugins/fancyuploder/jquery.ui.widget.js' %} "></script>
+    <script src=" {% static 'assets/plugins/fancyuploder/jquery.fileupload.js' %} "></script>
+    <script src=" {% static 'assets/plugins/fancyuploder/jquery.iframe-transport.js' %} "></script>
+    <script src=" {% static 'assets/plugins/fancyuploder/jquery.fancy-fileupload.js' %} "></script>
+    <script src=" {% static 'assets/plugins/fancyuploder/fancy-uploader.js' %} "></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#id_animal_type").change(function () {
+            const url = '/animal/ajax/load-breeds';
+            const animal_type = $(this).val();
+            const elem = document.getElementById('id_dominant_colour');
+            elem.selectedIndex = 0;
+            $.ajax({
+                url: url,
+                data: {
+                    'animal_type': animal_type
+                },
+                success: function (data) {
+                    $("#id_breed").html(data);
+                }
+            });
+        });
+    </script>
+    <script>
+        $("#id_breed").change(function () {
+            const url = '/animal/ajax/load-colours';
+            const breed = $(this).val();
+            $.ajax({
+                url: url,
+                data: {
+                    'breed': breed
+                },
+                success: function (data) {
+                    $("#id_dominant_colour").html(data);
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{% endblock %}

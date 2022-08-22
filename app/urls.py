@@ -1,13 +1,14 @@
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
 import animal.views
+import establishment.views
 from . import views
+from litmas import settings
 
 app_name = 'app'
 
-from litmas import settings
 
 admin.site.site_header = 'LITMAS'
 admin.site.site_title = 'LITMAS Admin'
@@ -15,6 +16,24 @@ admin.site.index_title = 'Livestock Traceability Management System'
 admin.empty_value_display = '**Empty**'
 
 urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
+
+    path('animal_listing', animal.views.list_animal, name='list_animal'),
+    path('animal_home', animal.views.home, name='animal_home'),
+    path('animal_registration', animal.views.register_animal, name='register_animal'),
+    path('ajax/load-breeds', animal.views.load_breeds, name='ajax_load_breeds'),
+    path('ajax/load-colours', animal.views.load_colours, name='ajax_load_colours'),
+    path('animal_registry', animal.views.registry, name='animal_registry'),
+    path('animal_transfer', animal.views.registry, name='animal_transfer'),
+    path('animal_profile/<str:id>', animal.views.animal_profile, name='animal_profile'),
+    path('establishment_registration', establishment.views.register_establishment, name='establishment_registration'),
+
+    path('ajax/load-district', establishment.views.load_district, name='ajax_load_district'),
+    path('ajax/load-county', establishment.views.load_county, name='ajax_load_county'),
+    path('ajax/load-subcounty', establishment.views.load_subcounty, name='ajax_subcounty'),
+    path('ajax/load-parish', establishment.views.load_parish, name='ajax_parish'),
+    path('ajax/load-village', establishment.views.load_village, name='ajax_load_village'),
+
+
     path('', views.index, name='index'),
     path('about', views.about, name='about'),
     path('accordion', views.accordion, name='accordion'),

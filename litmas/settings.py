@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'person',
     'service_provider',
     'django.contrib.admin',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -99,12 +100,12 @@ TEMPLATES = [
     },
 ]
 MESSAGE_TAGS = {
-        messages.DEBUG: 'light',
-        messages.INFO: 'info',
-        messages.SUCCESS: 'success',
-        messages.WARNING: 'warning',
-        messages.ERROR: 'danger',
- }
+    messages.DEBUG: 'light',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
 WSGI_APPLICATION = 'litmas.wsgi.application'
 
 # Database
@@ -118,7 +119,7 @@ DATABASES = {
     #
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'litmas_new',
+        'NAME': 'litmas',
         'USER': 'root',
         'PASSWORD': 'abc123',
         'HOST': 'localhost',
@@ -169,12 +170,12 @@ HTML_MINIFY = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MEDIA_ROOT = os.path.join(CORE_DIR, 'media')
-MEDIA_URL = '/media/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR]
-print(STATIC_DIR)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

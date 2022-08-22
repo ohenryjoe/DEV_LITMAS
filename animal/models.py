@@ -1,3 +1,4 @@
+import os
 import uuid
 from operator import concat
 
@@ -11,12 +12,25 @@ from organisation.models import organisation
 from establishment.models import establishment
 
 
+def get_next_index():
+    try:
+        animal_index = animal.objects.count()
+        animal_index = animal_index + 1
+    except:
+        animal_index = 1
+    return animal_index
+
+
+def image_path(instance, filename):
+    return str(instance.id) + os.path.splitext(filename)[1]
+
+
 class animal(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    sex = models.ForeignKey(sex, default=None, on_delete=models.PROTECT)
-    animal_type = models.ForeignKey(animal_type, null=True, blank=True, on_delete=models.PROTECT)
-    breed = models.ForeignKey(breed, default=None, on_delete=models.PROTECT)
-    dominant_colour = models.ForeignKey(dom_skin_color, default=None, on_delete=models.PROTECT)
+    sex = models.ForeignKey(sex, on_delete=models.PROTECT)
+    animal_type = models.ForeignKey(animal_type, on_delete=models.PROTECT)
+    breed = models.ForeignKey(breed, on_delete=models.PROTECT)
+    dominant_colour = models.ForeignKey(dom_skin_color, on_delete=models.PROTECT)
     origin = models.ForeignKey(origin, on_delete=models.PROTECT)
     status = models.ForeignKey(animal_status, on_delete=models.PROTECT)
     person = models.ForeignKey(person, null=True, blank=True, on_delete=models.PROTECT)
@@ -27,17 +41,21 @@ class animal(models.Model):
     date_of_birth = models.DateField()
     date_obtained = models.DateField(null=True, blank=True)
     date_of_death = models.DateField(null=True, blank=True)
-    description = models.CharField(max_length=100, null=True, blank=True)
-    front_photo = models.ImageField(upload_to='animal_photos/front', null=True, blank=True)
-    side_photo = models.ImageField(upload_to='animal_photos/side', null=True, blank=True)
+    description = models.CharField(max_length=800, null=True, blank=True)
+    front_photo = models.FileField(upload_to=image_path)
+    side_photo = models.FileField(upload_to=image_path)
     active = models.BooleanField(default=False)
     created_by = models.CharField(max_length=100, default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True)
     updated_by = models.CharField(max_length=100, default=None)
     updated_timestamp = models.DateTimeField(auto_now=True)
 
+    def save(self, **kwargs):
+        self.animal_number = get_next_index()
+        super().save(**kwargs)
+
     def __str__(self):
-        return self.animal_number
+        return concat(concat(self.animal_number, ' - '), self.name.upper())
 
 
 class change_of_ownership(models.Model):

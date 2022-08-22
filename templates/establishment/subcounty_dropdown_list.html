@@ -1,0 +1,6 @@
+<div class="form-control select2 form-select">
+    <option value="">---------</option>
+    {% for tb in subcounty %}
+        <option value="{{ tb.pk }}">{{ tb.name }}</option>
+    {% endfor %}
+</div>

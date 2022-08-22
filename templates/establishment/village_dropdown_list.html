@@ -1,0 +1,6 @@
+<div class="form-control select2 form-select">
+    <option value="">---------</option>
+    {% for tb in village %}
+        <option value="{{ tb.id }}">{{ tb.name }}</option>
+    {% endfor %}
+</div>
