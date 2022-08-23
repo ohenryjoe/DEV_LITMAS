@@ -20,6 +20,7 @@ urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
     path('animal_listing', animal.views.list_animal, name='list_animal'),
     path('animal_home', animal.views.home, name='animal_home'),
     path('animal_registration', animal.views.register_animal, name='register_animal'),
+    path('animal_registration_est/<str:est_id>', animal.views.register_animal_to_est, name='register_animal'),
     path('ajax/load-breeds', animal.views.load_breeds, name='ajax_load_breeds'),
     path('ajax/load-colours', animal.views.load_colours, name='ajax_load_colours'),
     path('animal_registry', animal.views.registry, name='animal_registry'),

@@ -83,3 +83,23 @@ class register_animal_form(forms.ModelForm):
                 'name')
         else:
             pass
+
+
+class register_animal_to_est_form(register_animal_form):
+    fields = [
+        'sex',
+        'animal_type',
+        'breed',
+        'dominant_colour',
+        'origin',
+        'status',
+        'name',
+        'date_of_birth',
+        'date_obtained',
+        'date_of_death',
+        'description',
+        # 'front_photo',
+        # 'side_photo',
+        'active',
+    ]
+

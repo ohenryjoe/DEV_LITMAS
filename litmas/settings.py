@@ -112,20 +112,24 @@ WSGI_APPLICATION = 'litmas.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    #     'noa': {
-    #         'ENGINE': 'django.db.backends.sqlite3',
-    #         'NAME': BASE_DIR / 'db.sqlite3',
-    #     },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'litmas',
+    #     'USER': 'root',
+    #     'PASSWORD': 'abc123',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
+    # }
     #
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'litmas',
-        'USER': 'root',
-        'PASSWORD': 'abc123',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '5432',
     }
-    #
+
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql',
     #     'NAME': 'litmas',
