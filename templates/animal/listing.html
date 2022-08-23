@@ -30,43 +30,43 @@
                     <h3 class="card-title">Registered Animals</h3>
                 </div>
                 <div class="card-body">
-                   <table id="animal" class="table table-bordered text-nowrap key-buttons border-bottom  w-100">
-                            <thead>
+                    <table id="animal" class="table table-bordered text-nowrap key-buttons border-bottom  w-100">
+                        <thead>
+                        <tr>
+                            <th class="border-bottom-0">Animal Number</th>
+                            <th class="border-bottom-0">Type</th>
+                            <th class="border-bottom-0">Breed</th>
+                            <th class="border-bottom-0">Establishment</th>
+                            <th class="border-bottom-0">DateOfBirth</th>
+                            <th class="border-bottom-0">Photos</th>
+                            <th class="border-bottom-0">Date Registered</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for animal in animals %}
                             <tr>
-                                <th class="border-bottom-0">Animal Number</th>
-                                <th class="border-bottom-0">Type</th>
-                                <th class="border-bottom-0">Breed</th>
-                                <th class="border-bottom-0">Establishment</th>
-                                <th class="border-bottom-0">DateOfBirth</th>
-                                <th class="border-bottom-0">Photos</th>
-                                <th class="border-bottom-0">Date Registered</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for animal in animals %}
-                                <tr>
-                                    <td><a href="animal_profile/{{ animal.id }}">{{ animal.animal_number }}</a></td>
-                                    <td>{{ animal.animal_type.name }}</td>
-                                    <td>{{ animal.breed.name }}</td>
-                                    <td>{{ animal.est.name }}</td>
-                                    <td>{{ animal.date_of_birth }}</td>
-                                    <td>{% if  animal.front_photo %}
-                                        <img src="{{ animal.front_photo.url }}" height="20px" width="20px"
+                                <td><a href="animal_profile/{{ animal.id }}">{{ animal.animal_number }}</a></td>
+                                <td>{{ animal.animal_type.name }}</td>
+                                <td>{{ animal.breed.name }}</td>
+                                <td>{{ animal.est.name }}</td>
+                                <td>{{ animal.date_of_birth }}</td>
+                                <td>{% if  animal.front_photo %}
+                                    <img src="{{ animal.front_photo.url }}" height="20px" width="20px"
+                                         alt="front">{% endif %}
+                                    &nbsp;
+                                    {% if  animal.side_photo %}
+                                        <img src="{{ animal.side_photo.url }}" height="20px" width="20px"
                                              alt="front">{% endif %}
-                                        &nbsp;
-                                        {% if  animal.side_photo %}
-                                            <img src="{{ animal.side_photo.url }}" height="20px" width="20px"
-                                                 alt="front">{% endif %}
-                                    </td>
-                                    <td>{{ animal.created_timestamp.date }}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                                </td>
+                                <td>{{ animal.created_timestamp.date }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
 
     <!-- End Row -->
 
@@ -76,38 +76,17 @@
 {% block scripts %}
     <script>
         $(document).ready(function () {
-            $('#animal').dataTable({
-                {#processing: true,#}
-                serverSide: true,
-                sAjaxSource: 'http://127.0.0.1:8000/animal_listing',  // new url
-                columns: [
-                    {data: "name", },
-                    {name: "code",},
-                    {name: "description", },
-                    {name: 'sex', },
-                    {name: 'animal_type',},
-                    {name: 'breed',},
-                    {name: 'dominant_colour',},
-                    {name: 'origin', },
-                    {name: 'status', },
-                    {name: 'person', },
-                    {name: 'org',},
-                    {name: 'est', },
-                    {name: 'animal_number',},
-                    {name: 'name',},
-                    {name: 'date_of_birth',},
-                    {name: 'date_obtained',},
-                    {name: 'date_of_death',},
-                    {name: 'description',},
-                    {name: 'front_photo',},
-                    {name: 'side_photo',},
-                    {name: 'active',},
-                    {name: 'created_by',},
-                    {name: 'created_timestamp',},
-                    {name: 'updated_by',},
-                    {name: 'updated_timestamp',},
-                ],
-            });
+            var data = [];
+            for (var i = 0; i < 50000; i++) {
+                data.push([i, i, i, i, i]);
+            }
+            $('#animals').DataTable( {
+            data:           data,
+            deferRender:    true,
+            scrollY:        200,
+            scrollCollapse: true,
+            scroller:       true
+        } );
         });
     </script>
 

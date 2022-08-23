@@ -149,29 +149,29 @@ def load_colours(request):
 class AnimalListViewSet(viewsets.ModelViewSet):
     queryset = animal_model.objects.all().order_by('-created_timestamp')[:100]
     serializer_class = AnimalSerializer
-    # columns = ['sex',
-    #            'animal_type',
-    #            'breed',
-    #            'dominant_colour',
-    #            'origin',
-    #            'status',
-    #            'person',
-    #            'org',
-    #            'est',
-    #            'animal_number',
-    #            'name',
-    #            'date_of_birth',
-    #            'date_obtained',
-    #            'date_of_death',
-    #            'description',
-    #            'front_photo',
-    #            'side_photo',
-    #            'active',
-    #            'created_by',
-    #            'created_timestamp',
-    #            'updated_by',
-    #            'updated_timestamp',
-    #            ]
+    columns = ['sex',
+               'animal_type',
+               'breed',
+               'dominant_colour',
+               'origin',
+               'status',
+               'person',
+               'org',
+               'est',
+               'animal_number',
+               'name',
+               'date_of_birth',
+               'date_obtained',
+               'date_of_death',
+               'description',
+               'front_photo',
+               'side_photo',
+               'active',
+               'created_by',
+               'created_timestamp',
+               'updated_by',
+               'updated_timestamp',
+               ]
 
 
 def list_animal(request):
@@ -191,11 +191,11 @@ def list_animal(request):
 
 
 def home(request):
-    animals = animal_model.objects.all().order_by('-created_timestamp')[:20]
+    animals = animal_model.objects.all().order_by('-created_timestamp')
     data = {'animals': animals}
     return render(request, 'animal/registry.html', data)
 
 
 def registry(request):
-    animals = animal_model.objects.all().order_by('-created_timestamp')[:20]
+    animals = animal_model.objects.all().order_by('-created_timestamp')
     return render(request, 'animal/listing.html', {'animals': animals})

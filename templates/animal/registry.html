@@ -2,8 +2,7 @@
 {% load static %}
 
 {% block styles %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.22/datatables.min.css"/>
+
 {% endblock %}
 
 {% block content %}
@@ -53,22 +52,16 @@
 
 {% block scripts %}
     <script>
-        const json = {{ animals | safe }};
-        const json2 = JSON.stringify(json);
-        $('#animals').DataTable({
 
-            pagination: "bootstrap",
-            filter: true,
-            url: '/api/animals/',
-            data: json2,
-            destroy: true,
-            lengthMenu: [5, 10, 25],
-            pageLength: 10,
-            "columns": [
-                {"animals": "id"},
-                {"animals": "name"},
-                {"animals": "est"}
-            ]
+        $('#animals').DataTable({
+            ajax: {
+                url: '/api/animals/',
+                "columns": [
+                    "id",
+                    "name",
+                    "est"
+                ]
+            }
         });
     </script>
 
@@ -76,10 +69,6 @@
     <script src=" {% static 'assets/plugins/select2/select2.full.min.js' %} "></script>
 
     <!-- DATA TABLE JS-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/r/dt/dt-1.10.22/datatables.min.js"></script>
-
     <script src=" {% static 'assets/plugins/datatable/js/jquery.dataTables.min.js' %} "></script>
     <script src=" {% static 'assets/plugins/datatable/js/dataTables.bootstrap5.js' %} "></script>
     <script src=" {% static 'assets/plugins/datatable/js/dataTables.buttons.min.js' %} "></script>
