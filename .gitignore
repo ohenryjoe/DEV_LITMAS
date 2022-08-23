@@ -66,6 +66,7 @@ docs/_build/
 
 # PyBuilder
 target/
+fixture_files/*
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -116,3 +117,4 @@ media/
 /litmas/settings.py
 # Project exclude paths
 /static/assets/iconfonts/unicons/node_modules/
+/fixture_files/
