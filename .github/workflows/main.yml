@@ -1,0 +1,22 @@
+# Workflow for github actions
+
+name: LITMAS CI/CD
+
+on:
+  push:
+    branches: [branch_henry]
+  
+  # Allows you to run this workflow manually
+  workflow_dispatch:
+
+  jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        name: Running deployment bash script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.LITMAS_HOST }}
+          username: ${{ secrets.LITMAS_USERNAME }}
+          key: ${{ secrets.LITMAS_SSH }}
+          script: ./deploy.sh
