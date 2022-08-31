@@ -19,4 +19,4 @@ jobs:
           host: ${{ secrets.LITMAS_HOST }}
           username: ${{ secrets.LITMAS_USERNAME }}
           key: ${{ secrets.LITMAS_SSH }}
-          script: ./deploy.sh
+          script: ls
